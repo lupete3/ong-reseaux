@@ -22,9 +22,12 @@ return [
   "gitRepo" => "https://github.com/themeselection/sneat-bootstrap-laravel-livewire-starter-kit.git",
   "gitRepoAccess" => "https://tools.themeselection.com/github/github-access",
   "githubFreeUrl" => "https://github.com/themeselection",
-  "facebookUrl" => "https://www.facebook.com/ThemeSelections/",
-  "twitterUrl" => "https://x.com/Theme_Selection",
-  "githubUrl" => "https://github.com/themeselection",
-  "dribbbleUrl" => "https://dribbble.com/themeselection",
-  "instagramUrl" => "https://www.instagram.com/themeselection/"
+  
+  "address" => "Bukavu, RD Congo",
+  "email" => "contact@plateforme-partenaire.org",
+  "phone" => "+234 978 654 3210",
+
+  "facebookUrl" => "#",
+  "twitterUrl" => "#",
+  "linkedinUrl" => "#"
 ];
