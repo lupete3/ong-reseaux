@@ -35,9 +35,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
     }
-}; ?>
+};
+?>
 
-@section('title', 'Register Page')
+@section('title', 'Page d\'Inscription')
 
 @section('page-style')
 @vite([
@@ -46,8 +47,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 @endsection
 
 <div>
-    <h4 class="mb-1">{{ __('Adventure starts here') }} 🚀</h4>
-    <p class="mb-6">{{ __('Make your app management easy and fun!') }}</p>
+    <h4 class="mb-1">{{ __('L\'aventure commence ici') }} 🚀</h4>
+    <p class="mb-6">{{ __('Rendez la gestion de votre application simple et amusante !') }}</p>
 
     <!-- Session Status -->
     @if (session('status'))
@@ -58,7 +59,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
     <form wire:submit="register" class="mb-6">
         <div class="mb-6">
-            <label for="name" class="form-label">{{ __('Name') }}</label>
+            <label for="name" class="form-label">{{ __('Nom') }}</label>
             <input
                 wire:model="name"
                 type="text"
@@ -67,7 +68,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 required
                 autofocus
                 autocomplete="name"
-                placeholder="{{ __('Enter your name') }}"
+                placeholder="{{ __('Saisissez votre nom') }}"
             >
             @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -83,7 +84,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 id="email"
                 required
                 autocomplete="email"
-                placeholder="{{ __('Enter your email') }}"
+                placeholder="{{ __('Saisissez votre e-mail') }}"
             >
             @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -91,7 +92,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         </div>
 
         <div class="mb-6 form-password-toggle">
-            <label class="form-label" for="password">{{ __('Password') }}</label>
+            <label class="form-label" for="password">{{ __('Mot de passe') }}</label>
             <div class="input-group input-group-merge">
                 <input
                     wire:model="password"
@@ -110,7 +111,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         </div>
 
         <div class="mb-6 form-password-toggle">
-            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
+            <label class="form-label" for="password_confirmation">{{ __('Confirmer le mot de passe') }}</label>
             <div class="input-group input-group-merge">
                 <input
                     wire:model="password_confirmation"
@@ -132,8 +133,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
             <div class="form-check mb-0 ms-2">
                 <input wire:model="terms" type="checkbox" class="form-check-input @error('terms') is-invalid @enderror" id="terms">
                 <label class="form-check-label" for="terms">
-                    {{ __('I agree to') }}
-                    <a href="javascript:void(0);">{{ __('privacy policy & terms') }}</a>
+                    {{ __('J\'accepte la') }}
+                    <a href="javascript:void(0);">{{ __('politique de confidentialité et les conditions') }}</a>
                 </label>
                 @error('terms')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -141,15 +142,19 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary d-grid w-100 mb-6">
-            {{ __('Sign up') }}
+        <button type="submit" class="btn btn-primary d-grid w-100 mb-6" wire:loading.attr="disabled">
+            <span wire:loading.remove>{{ __('S\'inscrire') }}</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ __('Inscription...') }}
+            </span>
         </button>
     </form>
 
     <p class="text-center">
-        <span>{{ __('Already have an account?') }}</span>
+        <span>{{ __('Vous avez déjà un compte ?') }}</span>
         <a href="{{ route('login') }}" wire:navigate>
-            <span>{{ __('Sign in instead') }}</span>
+            <span>{{ __('Connectez-vous à la place') }}</span>
         </a>
     </p>
 </div>

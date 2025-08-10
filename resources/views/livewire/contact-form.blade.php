@@ -30,7 +30,13 @@
                             @error('message') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Envoyer le Message</button>
+                            <button class="btn btn-primary w-100 py-3" type="submit" wire:loading.attr="disabled">
+                                <span wire:loading.remove>Envoyer le Message</span>
+                                <span wire:loading>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Envoi en cours...
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </form>

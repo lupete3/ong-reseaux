@@ -55,7 +55,13 @@ new class extends Component {
 
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                            <button type="submit" class="btn btn-danger">{{ __('Delete account') }}</button>
+                            <button type="submit" class="btn btn-danger" wire:loading.attr="disabled">
+                                <span wire:loading.remove>{{ __('Delete account') }}</span>
+                                <span wire:loading>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    {{ __('Deleting...') }}
+                                </span>
+                            </button>
                         </div>
                     </form>
                 </div>

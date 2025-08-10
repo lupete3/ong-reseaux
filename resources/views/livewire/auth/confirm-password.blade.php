@@ -32,7 +32,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-@section('title', 'Confirm Password')
+@section('title', 'Confirmer le mot de passe')
 
 @section('page-style')
 @vite([
@@ -41,8 +41,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 @endsection
 
 <div>
-    <h4 class="mb-1">{{ __('Security Verification') }} 🔐</h4>
-    <p class="mb-6">{{ __('This is a secure area. Please confirm your password before continuing.') }}</p>
+    <h4 class="mb-1">{{ __('Vérification de sécurité') }} 🔐</h4>
+    <p class="mb-6">{{ __('Ceci est une zone sécurisée. Veuillez confirmer votre mot de passe avant de continuer.') }}</p>
 
     <!-- Session Status -->
     @if (session('status'))
@@ -53,7 +53,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
     <form wire:submit="confirmPassword" class="mb-6">
         <div class="mb-6 form-password-toggle">
-            <label class="form-label" for="password">{{ __('Password') }}</label>
+            <label class="form-label" for="password">{{ __('Mot de passe') }}</label>
             <div class="input-group input-group-merge">
                 <input
                     wire:model="password"
@@ -71,15 +71,19 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary d-grid w-100 mb-6">
-            {{ __('Confirm Password') }}
+        <button type="submit" class="btn btn-primary d-grid w-100 mb-6" wire:loading.attr="disabled">
+            <span wire:loading.remove>{{ __('Confirmer le mot de passe') }}</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ __('Confirmation...') }}
+            </span>
         </button>
     </form>
 
     <div class="text-center">
         <a href="{{ route('dashboard') }}" class="d-flex justify-content-center" wire:navigate>
             <i class="bx bx-chevron-left scaleX-n1-rtl me-1"></i>
-            {{ __('Back to dashboard') }}
+            {{ __('Retour au tableau de bord') }}
         </a>
     </div>
 </div>

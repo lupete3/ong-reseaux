@@ -60,7 +60,13 @@ new class extends Component {
             </div>
 
             <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary w-100">{{ __('Save') }}</button>
+                <button type="submit" class="btn btn-primary w-100" wire:loading.attr="disabled">
+                    <span wire:loading.remove>{{ __('Save') }}</span>
+                    <span wire:loading>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        {{ __('Saving...') }}
+                    </span>
+                </button>
 
                 <x-action-message class="ms-3" on="password-updated">
                     {{ __('Saved.') }}

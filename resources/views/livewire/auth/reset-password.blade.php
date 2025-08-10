@@ -59,7 +59,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-@section('title', 'Reset Password')
+@section('title', 'Réinitialiser le mot de passe')
 
 @section('page-style')
 @vite([
@@ -68,8 +68,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 @endsection
 
 <div>
-    <h4 class="mb-1">{{ __('Reset Password') }} 🔑</h4>
-    <p class="mb-6">{{ __('Your new password must be different from previously used passwords') }}</p>
+    <h4 class="mb-1">{{ __('Réinitialiser le mot de passe') }} 🔑</h4>
+    <p class="mb-6">{{ __('Votre nouveau mot de passe doit être différent des mots de passe précédemment utilisés') }}</p>
 
     <!-- Session Status -->
     @if (session('status'))
@@ -88,7 +88,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 id="email"
                 required
                 autocomplete="email"
-                placeholder="{{ __('Enter your email') }}"
+                placeholder="{{ __('Saisissez votre e-mail') }}"
             >
             @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -96,7 +96,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         </div>
 
         <div class="mb-6 form-password-toggle">
-            <label class="form-label" for="password">{{ __('New Password') }}</label>
+            <label class="form-label" for="password">{{ __('Nouveau mot de passe') }}</label>
             <div class="input-group input-group-merge">
                 <input
                     wire:model="password"
@@ -115,7 +115,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         </div>
 
         <div class="mb-6 form-password-toggle">
-            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
+            <label class="form-label" for="password_confirmation">{{ __('Confirmer le mot de passe') }}</label>
             <div class="input-group input-group-merge">
                 <input
                     wire:model="password_confirmation"
@@ -133,14 +133,18 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary d-grid w-100 mb-6">
-            {{ __('Set New Password') }}
+        <button type="submit" class="btn btn-primary d-grid w-100 mb-6" wire:loading.attr="disabled">
+            <span wire:loading.remove>{{ __('Définir un nouveau mot de passe') }}</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ __('Réinitialisation...') }}
+            </span>
         </button>
 
         <div class="text-center">
             <a href="{{ route('login') }}" class="d-flex justify-content-center" wire:navigate>
                 <i class="bx bx-chevron-left scaleX-n1-rtl me-1"></i>
-                {{ __('Back to login') }}
+                {{ __('Retour à la connexion') }}
             </a>
         </div>
     </form>
