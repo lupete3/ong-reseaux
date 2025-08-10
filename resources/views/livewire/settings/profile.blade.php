@@ -68,15 +68,15 @@ new class extends Component {
     }
 }; ?>
 
-@section('title', 'Profile')
+@section('title', 'Profil')
 
 <section>
     @include('partials.settings-heading')
 
-    <x-settings.layout :subheading="__('Update your name and email address')">
+    <x-settings.layout :subheading="__('Mettez à jour votre nom et votre adresse e-mail')">
         <form wire:submit="updateProfileInformation" class="mb-6 w-50">
             <div class="mb-4">
-                <label for="name" class="form-label">{{ __('Name') }}</label>
+                <label for="name" class="form-label">{{ __('Nom') }}</label>
                 <input type="text" id="name" wire:model="name" class="form-control" placeholder="John Doe" required autofocus autocomplete="name">
             </div>
 
@@ -90,14 +90,14 @@ new class extends Component {
                 @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
                     <div class="mt-3">
                         <p class="text-warning">
-                            {{ __('Your email address is unverified.') }}
-                            <a href="#" wire:click.prevent="resendVerificationNotification" class="text-info">{{ __('Click here to re-send the verification email.') }}</a>
-                            <span wire:loading wire:target="resendVerificationNotification" class="text-muted">{{ __('Sending...') }}</span>
+                            {{ __('Votre adresse e-mail n\'est pas vérifiée.') }}
+                            <a href="#" wire:click.prevent="resendVerificationNotification" class="text-info">{{ __('Cliquez ici pour renvoyer l\'e-mail de vérification.') }}</a>
+                            <span wire:loading wire:target="resendVerificationNotification" class="text-muted">{{ __('Envoi en cours...') }}</span>
                         </p>
 
                         @if (session('status') === 'verification-link-sent')
                             <p class="mt-2 text-success">
-                                {{ __('A new verification link has been sent to your email address.') }}
+                                {{ __('Un nouveau lien de vérification a été envoyé à votre adresse e-mail.') }}
                             </p>
                         @endif
                     </div>
@@ -106,14 +106,14 @@ new class extends Component {
 
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
-                    <span wire:loading.remove>{{ __('Save Changes') }}</span>
+                    <span wire:loading.remove>{{ __('Enregistrer les modifications') }}</span>
                     <span wire:loading>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        {{ __('Saving...') }}
+                        {{ __('Enregistrement...') }}
                     </span>
                 </button>
                 <x-action-message class="me-3" on="profile-updated">
-                    {{ __('Saved.') }}
+                    {{ __('Enregistré.') }}
                 </x-action-message>
             </div>
         </form>
