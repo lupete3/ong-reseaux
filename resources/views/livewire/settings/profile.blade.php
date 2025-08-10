@@ -1,22 +1,15 @@
 <?php
 
 use App\Livewire\Actions\Logout;
-use App\Models\User;
+use App\Livewire\Forms\PasswordForm;
+use App\Livewire\Forms\ProfileForm;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\ValidationException;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public string $name = '';
-    public string $email = '';
-
-    public string $current_password = '';
-    public string $password = '';
-    public string $password_confirmation = '';
+    public ProfileForm $profileForm;
+    public PasswordForm $passwordForm;
 
     public string $delete_password = '';
 
@@ -25,8 +18,7 @@ new class extends Component {
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $this->profileForm->set(Auth::user());
     }
 
     /**
@@ -34,29 +26,9 @@ new class extends Component {
      */
     public function updateProfileInformation(): void
     {
-        $user = Auth::user();
+        $this->profileForm->update();
 
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id)
-            ],
-        ]);
-
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        $this->dispatch('profile-updated', name: $user->name);
+        $this->dispatch('profile-updated', name: $this->profileForm->name);
     }
 
     /**
@@ -82,23 +54,7 @@ new class extends Component {
      */
     public function updatePassword(): void
     {
-        try {
-            $validated = $this->validate([
-                'current_password' => ['required', 'string', 'current_password'],
-                'password' => ['required', 'string', Password::defaults(), 'confirmed'],
-            ]);
-        } catch (ValidationException $e) {
-            $this->reset('current_password', 'password', 'password_confirmation');
-
-            throw $e;
-        }
-
-        Auth::user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
-
-        $this->reset('current_password', 'password', 'password_confirmation');
-
+        $this->passwordForm->updatePassword();
         $this->dispatch('password-updated');
     }
 
@@ -143,16 +99,14 @@ new class extends Component {
                             <form wire:submit="updateProfileInformation">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">{{
- __('Nom') }}
-                                        </label>
-                                        <input type="text" id="name" wire:model="name" class="form-control" placeholder="John Doe" required autofocus autocomplete="name">
+                                        <label for="name" class="form-label">{{ __('Nom') }}</label>
+                                        <input type="text" id="name" wire:model="profileForm.name" class="form-control" placeholder="John Doe" required autofocus autocomplete="name">
+                                        @error('profileForm.name') <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="email" class="form-label">{{
- __('Email') }}
-                                        </label>
-                                        <input type="email" id="email" wire:model="email" class="form-control" placeholder="email@example.com" required autocomplete="email">
+                                        <label for="email" class="form-label">{{ __('Email') }}</label>
+                                        <input type="email" id="email" wire:model="profileForm.email" class="form-control" placeholder="email@example.com" required autocomplete="email">
+                                        @error('profileForm.email') <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
 
@@ -160,12 +114,8 @@ new class extends Component {
                                     <div class="mt-3">
                                         <p class="text-warning">
                                             {{ __('Votre adresse e-mail n\'est pas vérifiée.') }}
-                                            <a href="#" wire:click.prevent="resendVerificationNotification" class="text-info">{{
- __('Cliquez ici pour renvoyer l\'e-mail de vérification.') }}
-                                            </a>
-                                            <span wire:loading wire:target="resendVerificationNotification" class="text-muted">{{
- __('Envoi en cours...') }}
-                                            </span>
+                                            <a href="#" wire:click.prevent="resendVerificationNotification" class="text-info">{{ __('Cliquez ici pour renvoyer l\'e-mail de vérification.') }}</a>
+                                            <span wire:loading wire:target="resendVerificationNotification" class="text-muted">{{ __('Envoi en cours...') }}</span>
                                         </p>
 
                                         @if (session('status') === 'verification-link-sent')
@@ -199,22 +149,19 @@ new class extends Component {
                                     <h6 class="mb-3">Changer le mot de passe</h6>
                                     <form wire:submit="updatePassword">
                                         <div class="mb-3">
-                                            <label for="current_password" class="form-label">{{
- __('Mot de passe actuel') }}
-                                            </label>
-                                            <input type="password" id="current_password" wire:model="current_password" class="form-control" required autocomplete="current-password" />
+                                            <label for="current_password" class="form-label">{{ __('Mot de passe actuel') }}</label>
+                                            <input type="password" id="current_password" wire:model="passwordForm.current_password" class="form-control" required autocomplete="current-password" />
+                                            @error('passwordForm.current_password') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password" class="form-label">{{
- __('Nouveau mot de passe') }}
-                                            </label>
-                                            <input type="password" id="password" wire:model="password" class="form-control" required autocomplete="new-password" />
+                                            <label for="password" class="form-label">{{ __('Nouveau mot de passe') }}</label>
+                                            <input type="password" id="password" wire:model="passwordForm.password" class="form-control" required autocomplete="new-password" />
+                                            @error('passwordForm.password') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password_confirmation" class="form-label">{{
- __('Confirmer le mot de passe') }}
-                                            </label>
-                                            <input type="password" id="password_confirmation" wire:model="password_confirmation" class="form-control" required autocomplete="new-password" />
+                                            <label for="password_confirmation" class="form-label">{{ __('Confirmer le mot de passe') }}</label>
+                                            <input type="password" id="password_confirmation" wire:model="passwordForm.password_confirmation" class="form-control" required autocomplete="new-password" />
+                                            @error('passwordForm.password_confirmation') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
                                         <div class="mt-2">
                                             <button type="submit" class="btn btn-primary me-2" wire:loading.attr="disabled">
@@ -250,9 +197,7 @@ new class extends Component {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">{{
- __('Êtes-vous sûr de vouloir supprimer votre compte ?') }}
-                    </h5>
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">{{ __('Êtes-vous sûr de vouloir supprimer votre compte ?') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -260,16 +205,13 @@ new class extends Component {
 
                     <form wire:submit="deleteUser" class="space-y-3">
                         <div class="mb-3">
-                            <label for="delete_password" class="form-label">{{
- __('Mot de passe') }}
-                            </label>
+                            <label for="delete_password" class="form-label">{{ __('Mot de passe') }}</label>
                             <input type="password" id="delete_password" wire:model="delete_password" class="form-control" required />
+                            @error('delete_password') <div class="text-danger">{{ $message }}</div> @enderror
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{
- __('Annuler') }}
-                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                             <button type="submit" class="btn btn-danger" wire:loading.attr="disabled">
                                 <span wire:loading.remove>{{ __('Supprimer le compte') }}</span>
                                 <span wire:loading>
