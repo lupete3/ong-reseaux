@@ -1,10 +1,10 @@
 <?php
 
-use App\Livewire\Actions\Logout;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Livewire\Attributes\Layout;
-use Livewire\Volt\Component;
+use App\\\Livewire\\Actions\\Logout;
+use Illuminate\\\\Support\\\\Facades\\\\Auth;
+use Illuminate\\\\Support\\\\Facades\\\\Session;
+use Livewire\\\\Attributes\\\\Layout;
+use Livewire\\\\Volt\\\\Component;
 
 new #[Layout('components.layouts.auth')] class extends Component {
     /**
@@ -29,9 +29,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $logout();
         $this->redirect('/', navigate: true);
     }
-}; ?>
+};
+?>
 
-@section('title', 'Verify Email')
+@section('title', 'Vérifier l\'e-mail')
 
 @section('page-style')
 @vite([
@@ -40,22 +41,30 @@ new #[Layout('components.layouts.auth')] class extends Component {
 @endsection
 
 <div>
-    <h4 class="mb-1">{{ __('Verify Your Email') }} 📧</h4>
-    <p class="mb-6">{{ __('Please verify your email address by clicking on the link we just emailed to you.') }}</p>
+    <h4 class="mb-1">{{ __('Vérifiez votre e-mail') }} 📧</h4>
+    <p class="mb-6">{{ __('Veuillez vérifier votre adresse e-mail en cliquant sur le lien que nous venons de vous envoyer.') }}</p>
 
     @if (session('status') == 'verification-link-sent')
         <div class="alert alert-success mb-4">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+            {{ __('Un nouveau lien de vérification a été envoyé à l\'adresse e-mail que vous avez fournie lors de l\'inscription.') }}
         </div>
     @endif
 
     <div class="text-center mb-6">
-        <button wire:click="sendVerification" class="btn btn-primary d-grid w-100 mb-3">
-            {{ __('Resend Verification Email') }}
+        <button wire:click="sendVerification" class="btn btn-primary d-grid w-100 mb-3" wire:loading.attr="disabled">
+            <span wire:loading.remove>{{ __('Renvoyer l\'e-mail de vérification') }}</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ __('Envoi...') }}
+            </span>
         </button>
 
-        <button wire:click="logout" class="btn btn-link">
-            {{ __('Log Out') }}
+        <button wire:click="logout" class="btn btn-link" wire:loading.attr="disabled">
+            <span wire:loading.remove>{{ __('Déconnexion') }}</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ __('Déconnexion...') }}
+            </span>
         </button>
     </div>
 </div>

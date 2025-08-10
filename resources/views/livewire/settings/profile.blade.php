@@ -92,6 +92,7 @@ new class extends Component {
                         <p class="text-warning">
                             {{ __('Your email address is unverified.') }}
                             <a href="#" wire:click.prevent="resendVerificationNotification" class="text-info">{{ __('Click here to re-send the verification email.') }}</a>
+                            <span wire:loading wire:target="resendVerificationNotification" class="text-muted">{{ __('Sending...') }}</span>
                         </p>
 
                         @if (session('status') === 'verification-link-sent')
