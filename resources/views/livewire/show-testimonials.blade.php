@@ -8,7 +8,7 @@
             @foreach($testimonials as $testimonial)
             <div class="testimonial-item bg-light my-4">
                 <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                    <img class="img-fluid rounded" src="{{ asset($testimonial->photo) }}" style="width: 60px; height: 60px;" >
+                    <img class="img-fluid rounded" src="{{ asset('storage/' . $testimonial->author_photo) }}" style="width: 60px; height: 60px;" >
                     <div class="ps-4">
                         <h4 class="text-primary mb-1">{{ $testimonial->name }}</h4>
                         <small class="text-uppercase">{{ $testimonial->position }}</small>

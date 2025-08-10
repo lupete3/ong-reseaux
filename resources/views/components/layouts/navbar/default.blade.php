@@ -2,7 +2,12 @@
   class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
   id="layout-navbar">
   <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
-    <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+    <a
+      class="nav-item nav-link px-0 me-xl-6"
+      href="javascript:void(0)"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#fbs__net-navbars"
+      aria-controls="fbs__net-navbars">
       <i class="icon-base bx bx-menu icon-md"></i>
     </a>
   </div>
@@ -22,17 +27,7 @@
     <!-- /Search -->
 
     <ul class="navbar-nav flex-row align-items-center ms-md-auto">
-      <li class="nav-item lh-1 me-4">
-        <a
-          class="github-button"
-          href="https://github.com/themeselection/sneat-bootstrap-laravel-livewire-starter-kit"
-          data-icon="octicon-star"
-          data-size="large"
-          data-show-count="true"
-          aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-          >Star</a
-        >
-      </li>
+      
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <!-- Check if the user is authenticated -->

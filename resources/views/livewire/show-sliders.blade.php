@@ -2,7 +2,7 @@
     <div class="carousel-inner">
         @foreach($sliders as $slider)
         <div class="carousel-item @if($loop->first) active @endif">
-            <img class="w-100" src="{{ asset($slider->image) }}" alt="Image">
+            <img class="w-100" src="{{ asset('storage/' . $slider->image) }}" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 900px;">
                     <h5 class="text-white text-uppercase mb-3 animated slideInDown">{{ $slider->subtitle }}</h5>

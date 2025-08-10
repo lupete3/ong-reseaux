@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PartnerSeeder::class,
             PostSeeder::class,
             AchievementSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }

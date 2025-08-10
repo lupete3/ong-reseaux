@@ -3,7 +3,7 @@
         <div class="bg-white">
             <div class="owl-carousel vendor-carousel">
                 @foreach($partners as $partner)
-                <img src="{{ asset($partner->logo) }}" alt="">
+                <img src="{{ asset('storage/' .$partner->logo) }}" alt="">
                 @endforeach
             </div>
         </div>

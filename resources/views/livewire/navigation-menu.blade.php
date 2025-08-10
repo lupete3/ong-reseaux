@@ -1,7 +1,11 @@
 <div class="container-fluid position-relative p-0">
     <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
         <a href="{{ url('/') }}" class="navbar-brand p-0">
-            <h1 class="m-0"><i class="fa fa-users me-2"></i>Plateforme</h1>
+            @if(isset($settings['logo']) && $settings['logo']->value)
+                <img src="{{ asset('storage/' . $settings['logo']->value) }}" alt="{{ $settings['site_name']->value ?? 'Logo' }}" style="max-height: 50px;">
+            @else
+                <h1 class="m-0"><i class="fa fa-users me-2"></i>{{ $settings['site_name']->value ?? 'Plateforme' }}</h1>
+            @endif
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
