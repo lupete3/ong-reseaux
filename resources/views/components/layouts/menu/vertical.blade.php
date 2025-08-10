@@ -59,6 +59,12 @@
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Pages</span>
     </li>
+    <li class="menu-item {{ request()->routeIs('admin.messages.index') ? 'active' : '' }}">
+        <a class="menu-link" href="{{ route('admin.messages.index') }}" wire:navigate>
+            <i class="menu-icon tf-icons bx bx-envelope"></i>
+            <div class="text-truncate">Messages</div>
+        </a>
+    </li>
     <li class="menu-item {{ request()->routeIs('admin.about.edit') ? 'active' : '' }}">
         <a class="menu-link" href="{{ route('admin.about.edit') }}" wire:navigate>
             <i class="menu-icon tf-icons bx bx-info-circle"></i>

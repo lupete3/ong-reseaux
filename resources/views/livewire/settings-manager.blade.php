@@ -68,7 +68,13 @@
                             </div>
 
                             <div class="mt-2">
-                                <button type="submit" class="btn btn-primary me-2">Enregistrer</button>
+                                <button type="submit" class="btn btn-primary me-2" wire:loading.attr="disabled">
+                                    <span wire:loading.remove>Enregistrer</span>
+                                    <span wire:loading>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Enregistrement...
+                                    </span>
+                                </button>
                             </div>
                         </form>
                     </div>

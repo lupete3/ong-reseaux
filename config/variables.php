@@ -1,15 +1,15 @@
 <?php
 // Variables
 return [
-  "creatorName" => "ThemeSelection",
-  "creatorUrl" => "https://themeselection.com",
+  "creatorName" => "PdevTuto",
+  "creatorUrl" => "https://pdevtuto.com",
+  "licenseUrl" => "https://pdevtuto.com",
   "templateName" => "Sneat",
   "templateSuffix" => "Laravel Bootstrap Starter Kit",
   "templateVersion" => "1.0.0",
   "templateFree" => true,
   "templateDescription" => "Laravel 12 Starter Kit with Bootstrap 5 – Powerful template for developers, offering clean code and seamless integration with Bootstrap 5 components.",
   "templateKeyword" => "laravel 12 starter kit, laravel bootstrap 5, bootstrap 5 starter kit, laravel bootstrap template, developer-friendly dashboard template",
-  "licenseUrl" => "https://themeselection.com/license/",
   "livePreview" => "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo/",
   "productPage" => "https://themeselection.com/item/sneat-free-bootstrap-laravel-livewire-starter-kit/",
   "ogTitle" => "Laravel Bootstrap Starter Kit by ThemeSelection",

@@ -1,1 +1,4 @@
-<livewire:show-features />
+<div>
+    <x-page-header title="Services"/>
+    <livewire:show-features />
+</div>

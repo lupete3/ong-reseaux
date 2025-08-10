@@ -4,7 +4,7 @@
             @if(isset($settings['logo']) && $settings['logo']->value)
                 <img src="{{ asset('storage/' . $settings['logo']->value) }}" alt="{{ $settings['site_name']->value ?? 'Logo' }}" style="max-height: 50px;">
             @else
-                <h1 class="m-0"><i class="fa fa-users me-2"></i>{{ $settings['site_name']->value ?? 'Plateforme' }}</h1>
+                <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>{{ $settings['site_name']->value ?? 'Startup' }}</h1>
             @endif
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -12,15 +12,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="{{ url('/') }}" class="nav-item nav-link active">Accueil</a>
+                <a href="{{ url('/') }}" class="nav-item nav-link">Accueil</a>
                 <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Qui Sommes Nous</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="{{ route('about') }}" class="dropdown-item">À Propos</a>
-                            <a href="{{ route('team') }}" class="dropdown-item">Les Membres</a>
-                        </div>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Qui sommes-nous ?</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="{{ route('about') }}" class="dropdown-item">A propos de nous</a>
+                        <a href="{{ route('team') }}" class="dropdown-item">Les Membres</a>
+                        <a href="{{ route('features') }}" class="dropdown-item">Nos Objectifs</a>
                     </div>
-                <a href="{{ route('achievements') }}" class="nav-item nav-link">Nos Réalisations</a>
+                </div>
+                <a href="{{ route('achievements') }}" class="nav-item nav-link">Nos réalisations</a>
                 <a href="{{ route('blog') }}" class="nav-item nav-link">Nos Activités</a>
                 <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
             </div>

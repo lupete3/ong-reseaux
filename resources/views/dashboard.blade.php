@@ -1,5 +1,5 @@
-@section('title', __('Dashboard'))
-<x-layouts.app :title="__('Dashboard')">
+@section('title', __('Tableau de bord'))
+<x-layouts.app :title="__('Tableau de bord')">
     <div class="row g-4">
         <div class="col-lg-4">
           <div class="overflow-hidden rounded border" style="aspect-ratio: 16/6;">
