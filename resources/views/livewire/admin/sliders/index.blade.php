@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Storage;
 new class extends Component {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public function with(): array
     {
         return [
-            'sliders' => Slider::orderBy('order')->paginate(10),
+            'sliders' => Slider::orderBy('order')->paginate(5),
         ];
     }
 

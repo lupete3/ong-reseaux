@@ -112,7 +112,13 @@ new class extends Component {
                     @error('order') <div class="text-danger">{{ $message }}</div> @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+                    <span wire:loading.remove>Enregistrer</span>
+                    <span wire:loading>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Enregistrement...
+                    </span>
+                </button>
                 <a href="{{ route('admin.sliders.index') }}" class="btn btn-secondary" wire:navigate>Annuler</a>
             </form>
         </div>

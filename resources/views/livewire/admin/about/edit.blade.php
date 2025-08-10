@@ -102,7 +102,13 @@ new class extends Component {
                     @error('features_text') <div class="text-danger">{{ $message }}</div> @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+                    <span wire:loading.remove>Mettre à jour</span>
+                    <span wire:loading>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Mise à jour...
+                    </span>
+                </button>
             </form>
         </div>
     </div>

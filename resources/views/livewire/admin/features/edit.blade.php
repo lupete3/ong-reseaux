@@ -73,7 +73,13 @@ new class extends Component {
                     @error('order') <div class="text-danger">{{ $message }}</div> @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+                    <span wire:loading.remove>Mettre à jour</span>
+                    <span wire:loading>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Mise à jour...
+                    </span>
+                </button>
                 <a href="{{ route('admin.features.index') }}" class="btn btn-secondary" wire:navigate>Annuler</a>
             </form>
         </div>

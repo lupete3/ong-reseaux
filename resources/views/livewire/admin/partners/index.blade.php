@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Storage;
 new class extends Component {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public function with(): array
     {
         return [
-            'partners' => Partner::latest()->paginate(10),
+            'partners' => Partner::latest()->paginate(5),
         ];
     }
 
