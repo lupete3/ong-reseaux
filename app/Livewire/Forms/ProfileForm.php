@@ -4,13 +4,18 @@ namespace App\Livewire\Forms;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
+use Livewire\WithFileUploads;
 
 class ProfileForm extends Form
 {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
+    public $photo;
 
     public function set(User $user): void
     {
@@ -30,6 +35,7 @@ class ProfileForm extends Form
                 'max:255',
                 Rule::unique(User::class)->ignore(Auth::id()),
             ],
+            'photo' => ['nullable', 'image', 'max:1024'], // 1MB Max
         ];
     }
 
@@ -39,7 +45,14 @@ class ProfileForm extends Form
 
         $user = Auth::user();
 
-        $user->fill($this->all());
+        $user->fill($this->only(['name', 'email']));
+
+        if ($this->photo) {
+            if ($user->photo) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            $user->photo = $this->photo->store('photos', 'public');
+        }
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

@@ -1,13 +1,16 @@
 <?php
 
-use App\Livewire\Actions\Logout;
-use App\Livewire\Forms\PasswordForm;
-use App\Livewire\Forms\ProfileForm;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Livewire\Volt\Component;
+use App\\\Livewire\\Actions\\Logout;
+use App\\\Livewire\\Forms\\PasswordForm;
+use App\\\Livewire\\Forms\\ProfileForm;
+use Illuminate\\Support\\Facades\\Auth;
+use Illuminate\\Support\\Facades\\Session;
+use Livewire\\Volt\\Component;
+use Livewire\\WithFileUploads;
 
 new class extends Component {
+    use WithFileUploads;
+
     public ProfileForm $profileForm;
     public PasswordForm $passwordForm;
 
@@ -97,6 +100,25 @@ new class extends Component {
                         <h5 class="card-header">Détails du Profil</h5>
                         <div class="card-body">
                             <form wire:submit="updateProfileInformation">
+                                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                    @if ($profileForm->photo)
+                                        <img src="{{ $profileForm->photo->temporaryUrl() }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                                    @elseif (auth()->user()->photo)
+                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                                    @else
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&color=7F9CF5&background=EBF4FF" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                                    @endif
+                                    <div class="button-wrapper">
+                                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">Télécharger une nouvelle photo</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" wire:model="profileForm.photo">
+                                        </label>
+                                        <p class="text-muted mb-0">JPG ou PNG autorisés. Taille maximale de 1 Mo.</p>
+                                        @error('profileForm.photo') <div class="text-danger">{{ $message }}</div> @enderror
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="name" class="form-label">{{ __('Nom') }}</label>
@@ -110,7 +132,7 @@ new class extends Component {
                                     </div>
                                 </div>
 
-                                @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
+                                @if (auth()->user() instanceof \Illuminate\\Contracts\\Auth\\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
                                     <div class="mt-3">
                                         <p class="text-warning">
                                             {{ __('Votre adresse e-mail n\'est pas vérifiée.') }}
