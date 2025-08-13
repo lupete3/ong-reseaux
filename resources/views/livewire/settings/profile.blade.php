@@ -1,12 +1,12 @@
 <?php
 
-use App\\\Livewire\\Actions\\Logout;
-use App\\\Livewire\\Forms\\PasswordForm;
-use App\\\Livewire\\Forms\\ProfileForm;
-use Illuminate\\Support\\Facades\\Auth;
-use Illuminate\\Support\\Facades\\Session;
-use Livewire\\Volt\\Component;
-use Livewire\\WithFileUploads;
+use App\Livewire\Actions\Logout;
+use App\Livewire\Forms\PasswordForm;
+use App\Livewire\Forms\ProfileForm;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component {
     use WithFileUploads;
@@ -132,7 +132,7 @@ new class extends Component {
                                     </div>
                                 </div>
 
-                                @if (auth()->user() instanceof \Illuminate\\Contracts\\Auth\\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
+                                @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
                                     <div class="mt-3">
                                         <p class="text-warning">
                                             {{ __('Votre adresse e-mail n\'est pas vérifiée.') }}
